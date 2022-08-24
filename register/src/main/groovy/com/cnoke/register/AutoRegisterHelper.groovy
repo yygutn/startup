@@ -5,7 +5,6 @@ import org.gradle.api.Project
 
 import java.lang.reflect.Type
 
-import static com.android.builder.model.AndroidProject.FD_INTERMEDIATES
 /**
  * 文件操作辅助类
  * @author zhangkb
@@ -56,7 +55,22 @@ class AutoRegisterHelper {
     }
 
     private static String getCacheFileDir(Project project) {
+        //通过反射去拿FD_INTERMEDIATES
+        def AndroidProject = Class.forName("com.android.builder.model.AndroidProject")
+        def SdkConstants = Class.forName("com.android.SdkConstants")
+        def temp = reflectIntermediates(AndroidProject) ?: reflectIntermediates(SdkConstants)
+        def FD_INTERMEDIATES = temp ?: "intermediates"
         return project.getBuildDir().absolutePath + File.separator + FD_INTERMEDIATES + File.separator + CACHE_INFO_DIR + File.separator
+    }
+
+    private static String reflectIntermediates(Class aClass) {
+        try {
+            def field = aClass.getDeclaredField("FD_INTERMEDIATES")
+            field.setAccessible(true)
+            return field.get(aClass).toString()
+        } catch (Throwable ignore) {
+        }
+        return null
     }
 
     /**

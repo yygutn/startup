@@ -26,37 +26,37 @@ internal class FinalAppRegister{
     }
 
     fun attachBaseContext(context: Context) {
-        applist.forEach {
+        for (it in applist) {
             it.attachBaseContext(context)
         }
     }
 
     fun onCreate() {
-        applist.forEach {
+        for (it in applist) {
             it.onCreate()
         }
     }
 
     fun onTerminate() {
-        applist.forEach {
+        for (it in applist) {
             it.onTerminate()
         }
     }
 
     fun onLowMemory() {
-        applist.forEach {
+        for (it in applist) {
             it.onLowMemory()
         }
     }
 
     fun onTrimMemory(level: Int) {
-        applist.forEach {
+        for (it in applist) {
             it.onTrimMemory(level)
         }
     }
 
     fun onConfigurationChanged(newConfig: Configuration) {
-        applist.forEach {
+        for (it in applist) {
             it.onConfigurationChanged(newConfig)
         }
     }

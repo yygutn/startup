@@ -46,8 +46,8 @@ internal class TaskManager private constructor(
             val singleAsyncTasks: MutableSet<TaskInfo> = mutableSetOf()
             val anchorTasks : MutableSet<TaskInfo> = mutableSetOf()
 
-            taskList.forEach { task ->
-                if(task.anchor){
+            for (task in taskList) {
+                if (task.anchor) {
                     //锚点任务
                     anchorTasks.add(task)
                 }
@@ -55,7 +55,7 @@ internal class TaskManager private constructor(
                     task.depends.isNotEmpty() -> {
                         //判断是否循环依赖
                         CheckTask.checkCircularDependency(listOf(task.name), task.depends, taskMap)
-                        task.depends.forEach {
+                        for (it in task.depends) {
                             val depend = taskMap[it]
                             checkNotNull(depend) {
                                 "找不到任务 [${task.name}] 的依赖任务 [$it]"

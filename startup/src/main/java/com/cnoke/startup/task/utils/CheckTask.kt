@@ -15,7 +15,7 @@ object CheckTask {
      */
     fun checkDuplicateName(taskList: List<TaskInfo>) {
         val set: MutableSet<String> = mutableSetOf()
-        taskList.forEach {
+        for (it in taskList) {
             check(set.contains(it.name).not()) {
                 "Task名称有重复: [${it.name}]"
             }
@@ -31,10 +31,10 @@ object CheckTask {
         depends: Set<String>,
         taskMap: Map<String, TaskInfo>
     ) {
-        depends.forEach { depend ->
+        for (depend in depends) {
             check(chain.contains(depend).not()) {
                 var result = "\n 有循环依赖 : \n"
-                for(r in chain){
+                for (r in chain) {
                     result += "   $r  依赖--> ${taskMap[r]?.depends} \n"
                 }
                 result

@@ -8,9 +8,9 @@ import com.cnoke.startup.task.InitTask
  * @title
  * @describe
  */
-internal class FinalTaskRegister {
+class FinalTaskRegister {
 
-    val taskList : MutableList<InitTask> = mutableListOf()
+    val taskList: MutableList<InitTask> = mutableListOf()
 
     init {
         init()
